@@ -99,14 +99,14 @@ PARAM_RESULT_FACET_INFO_SELECTED = "selected"
 
 
 class SenseiFacet:
-	expand = False
+	expand = "false"
 	minHits = 1
 	maxCounts = 10
 	orderBy = PARAM_RESULT_HITS
 	
 	def __init__(self,expand=False,minHits=1,maxCounts=10,orderBy=PARAM_RESULT_HITS):
 		if expand:
-			self.expand = True
+			self.expand = "true"
 		self.minHits = minHits
 		self.maxCounts = maxCounts
 		self.orderBy = orderBy
