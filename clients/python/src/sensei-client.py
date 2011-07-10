@@ -261,8 +261,8 @@ class SenseiClient:
 
 		if req.qParam.get("query"):
 			paramMap[PARAM_QUERY] = req.qParam.get("query")
-		paramMap["qparam"] = ",".join(param + ":" + req.qParam.get(param)
-					      for param in req.qParam.keys() if param != "query")
+		paramMap[PARAM_QUERY_PARAM] = ",".join(param + ":" + req.qParam.get(param)
+						       for param in req.qParam.keys() if param != "query")
 
 		for selection in req.selections:
 			paramMap[selection.getSelectNotParam()] = selection.getSelectNotParamValues()
@@ -308,8 +308,12 @@ def testSort2():
 	req.offset = 0
 	req.count = 4
 
+	qParam = {}
+	qParam["query"] = "cool car"
+	req.qParam = qParam
+
 	sort1 = SenseiSort("year", True)
-	sort2 = SenseiSort("relevance")
+	sort2 = SenseiSort("color")
 	req.sorts = [sort1, sort2]
 	
 	client = SenseiClient()
@@ -365,6 +369,10 @@ def testFacetSpecs():
 	facet1 = SenseiFacet()
 	facet2 = SenseiFacet(True, 1, 3, PARAM_FACET_ORDER_VAL)
 	facet3 = SenseiFacet(True, 1, 3, PARAM_FACET_ORDER_VAL)
+
+	req.facets["year"] = facet1
+	req.facets["color"] = facet2
+	req.facets["price"] = facet3
 	
 	client = SenseiClient()
 	client.doQuery(req)
