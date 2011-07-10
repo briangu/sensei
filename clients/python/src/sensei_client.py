@@ -343,8 +343,8 @@ def testSort2():
 	qParam["query"] = "cool car"
 	req.qParam = qParam
 
-	sort1 = SenseiSort("year", True)
-	sort2 = SenseiSort("color")
+	sort1 = SenseiSort("city")
+	sort2 = SenseiSort("color", True)
 	req.sorts = [sort1, sort2]
 	
 	client = SenseiClient()
@@ -404,6 +404,8 @@ def testFacetSpecs():
 	req.facets["year"] = facet1
 	req.facets["color"] = facet2
 	req.facets["price"] = facet3
+	req.facets["city"] = facet3
+	req.facets["category"] = facet3
 	
 	client = SenseiClient()
 	res = client.doQuery(req)
@@ -413,10 +415,10 @@ if __name__ == "__main__":
 
 	# Testing...
 
-	testSort1()
-	testQueryParam()
-	testSelection()
-	testFacetSpecs()
+	testSort2()
+	# testQueryParam()
+	# testSelection()
+	# testFacetSpecs()
 
 	#
 	# XXX: Initializing runtime facet parameters
