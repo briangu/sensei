@@ -725,6 +725,8 @@ public class HttpRestSenseiServiceImpl implements SenseiService
     result.addAll(convertFacetMap(jsonObj.getJSONObject(SenseiSearchServletParams.PARAM_RESULT_FACETS)));
     result.setHits(convertHitsArray(jsonObj.getJSONArray(SenseiSearchServletParams.PARAM_RESULT_HITS)));
 
+    result.setJsonResult(jsonObj);
+
     return result;
   }
 
@@ -860,7 +862,9 @@ public class HttpRestSenseiServiceImpl implements SenseiService
       while(keys.hasNext()){
     	  String key = (String)keys.next();
     	  if (SenseiSearchServletParams.PARAM_RESULT_HIT_UID.equals(key)){
-    		  hit.setUID(hitObj.getLong(SenseiSearchServletParams.PARAM_RESULT_HIT_UID));
+          Object obj = hitObj.get(SenseiSearchServletParams.PARAM_RESULT_HIT_UID);
+          String val = obj instanceof JSONArray ? (String)(((JSONArray)obj).get(0)) : (String)obj;
+          hit.setUID(Long.parseLong(val));
     	  }
     	  else if (SenseiSearchServletParams.PARAM_RESULT_HIT_DOCID.equals(key)){
     		  hit.setDocid(hitObj.getInt(SenseiSearchServletParams.PARAM_RESULT_HIT_DOCID));

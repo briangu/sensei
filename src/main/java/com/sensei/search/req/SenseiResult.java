@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.search.Explanation;
+import org.json.JSONObject;
 
 
 public class SenseiResult extends BrowseResult implements AbstractSenseiResult
@@ -18,6 +19,7 @@ public class SenseiResult extends BrowseResult implements AbstractSenseiResult
   private static final long serialVersionUID = 1L;
 
   private String _parsedQuery = null;
+  private JSONObject _jsonResult = null;
 
   public SenseiHit[] getSenseiHits()
   {
@@ -37,6 +39,16 @@ public class SenseiResult extends BrowseResult implements AbstractSenseiResult
   public String getParsedQuery()
   {
     return _parsedQuery;
+  }
+
+  public void setJsonResult(JSONObject result)
+  {
+    _jsonResult = result;
+  }
+
+  public JSONObject getJsonResult()
+  {
+    return _jsonResult;
   }
 
   @Override
